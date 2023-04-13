@@ -1,0 +1,120 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Dmitry
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 50
+            sequenceName: projects_seq
+            startValue: 1
+  - changeSet:
+      id: 2
+      author: Dmitry
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 50
+            sequenceName: sponsors_seq
+            startValue: 1
+  - changeSet:
+      id: 3
+      author: Dmitry
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 50
+            sequenceName: donations_seq
+            startValue: 1
+  - changeSet:
+      id: 4
+      author: Dmitry
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            tableName: projects
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_projects
+              - column:
+                  name: project_name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: participation_coefficient
+                  type: SMALLINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: budget
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_active
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 5
+      author: Dmitry
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            tableName: sponsors
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_sponsors
+              - column:
+                  name: sponsor_name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 6
+      author: Dmitry
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            tableName: donations
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_donations
+              - column:
+                  name: donation_sum
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sponsor_id
+                  type: BIGINT
+  - changeSet:
+      id: 7
+      author: Dmitry
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: sponsor_id
+            baseTableName: donations
+            constraintName: FK_USERS_ON_USER_DETAILS
+            referencedColumnNames: id
+            referencedTableName: sponsors
