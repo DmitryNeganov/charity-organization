@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/charity-organization
+    username: admin
+    password: password
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    enabled: true
+    change-log: db.changelog/db.changelog-master.yaml
+    url: jdbc:postgresql://localhost:5432/charity-organization
+    user: admin
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: validate
