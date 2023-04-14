@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+
+  postgres:
+    image: postgres:15.1-alpine
+    container_name: charity-organization-database
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: charity-organization
+      PGDATA: /data/postgres
+    volumes:
+      - database:/data/postgres
+    networks:
+      - charity-organization-db-network
+    ports:
+      - "5432:5432"
+    restart: always
+
+  pgAdmin:
+    container_name: pgAdminForCharityOrg
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: password
+    volumes:
+      - pgAdmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - charity-organization-db-network
+    depends_on:
+      - postgres
+
+networks:
+  charity-organization-db-network:
+    driver: bridge
+
+volumes:
+  database:
+  pgAdmin:
+
