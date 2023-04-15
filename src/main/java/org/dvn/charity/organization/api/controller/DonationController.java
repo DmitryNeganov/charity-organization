@@ -3,15 +3,19 @@ package org.dvn.charity.organization.api.controller;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.RequiredArgsConstructor;
 import org.dvn.charity.organization.persistence.entity.Donation;
+import org.dvn.charity.organization.service.DonationService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/donations")
+@RequiredArgsConstructor
 public class DonationController {
 
+    private final DonationService donationService;
 
     @GetMapping("/")
     public List<Donation> findAllDonations() {
