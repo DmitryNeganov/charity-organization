@@ -19,5 +19,4 @@ public class ProjectController {
         return null;
     }
 
-    @PostMapping
 }

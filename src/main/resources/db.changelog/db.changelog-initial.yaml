@@ -31,6 +31,15 @@ databaseChangeLog:
       author: Dmitry
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
+        - createSequence:
+            incrementBy: 50
+            sequenceName: donation_distribution_records_seq
+            startValue: 1
+  - changeSet:
+      id: 5
+      author: Dmitry
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
         - createTable:
             tableName: projects
             columns:
@@ -48,7 +57,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: participation_coefficient
+                  name: involvement_degree
                   type: SMALLINT
                   constraints:
                     nullable: false
@@ -63,7 +72,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
   - changeSet:
-      id: 5
+      id: 6
       author: Dmitry
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -84,7 +93,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
   - changeSet:
-      id: 6
+      id: 7
       author: Dmitry
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -100,7 +109,7 @@ databaseChangeLog:
                     primaryKey: true
                     primaryKeyName: pk_donations
               - column:
-                  name: donation_sum
+                  name: donation_full_sum
                   type: INTEGER
                   constraints:
                     nullable: false
@@ -108,13 +117,64 @@ databaseChangeLog:
                   name: sponsor_id
                   type: BIGINT
   - changeSet:
-      id: 7
+      id: 8
       author: Dmitry
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: sponsor_id
             baseTableName: donations
-            constraintName: FK_USERS_ON_USER_DETAILS
+            constraintName: fk_donations_on_sponsors
             referencedColumnNames: id
             referencedTableName: sponsors
+  - changeSet:
+      id: 9
+      author: Dmitry
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            tableName: donation_distribution_records
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_donation_distribution_records
+              - column:
+                  name: project_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: distributed_sum
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+              - column:
+                  name: donation_id
+                  type: BIGINT
+  - changeSet:
+      id: 10
+      author: Dmitry
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: project_id
+            baseTableName: donation_distribution_records
+            constraintName: fk_donation_distribution_records_on_projects
+            referencedColumnNames: id
+            referencedTableName: projects
+  - changeSet:
+      id: 11
+      author: Dmitry
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: donation_id
+            baseTableName: donation_distribution_records
+            constraintName: fk_donation_distribution_records_on_donations
+            referencedColumnNames: id
+            referencedTableName: donations

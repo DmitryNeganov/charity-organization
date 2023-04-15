@@ -1,13 +1,11 @@
 package org.dvn.charity.organization.persistence.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "projects")
@@ -23,7 +21,7 @@ public class Project {
     private String projectName;
 
     @Column(nullable = false)
-    private int participationCoefficient;
+    private int involvementDegree; //1, 2, 3, 4, 5
 
     @Column(nullable = false)
     private int budget;

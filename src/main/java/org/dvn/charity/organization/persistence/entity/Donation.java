@@ -22,10 +22,9 @@ public class Donation {
     private long id;
 
     @Column(nullable = false)
-    private int donationSum;
+    private int donationFullSum;
 
     @OneToOne
     @JoinColumn(name = "sponsor_id", referencedColumnName = "id")
     private Sponsor sponsor;
-
 }
