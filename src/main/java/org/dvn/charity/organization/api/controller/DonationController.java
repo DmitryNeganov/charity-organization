@@ -19,12 +19,12 @@ public class DonationController {
 
     @GetMapping("/")
     public List<Donation> findAllDonations() {
-        return null;
+        return donationService.getAllDonations();
     }
 
     @GetMapping("/{id}")
     public Donation getDonationById(@PathVariable("id") long id) {
-        return null;
+        return donationService.getDonationById(id);
     }
 
     @PostMapping("/")
@@ -33,8 +33,8 @@ public class DonationController {
             @ApiResponse(code = 201, message = "Successfully created"),
             @ApiResponse(code = 400, message = "Missing or invalid request body"),
             @ApiResponse(code = 500, message = "Internal error")})
-    public Donation createDonation() {
-        return null;
+    public Donation createDonation(@RequestBody Donation donation) {
+        return donationService.createDonation(donation);
     }
 
 }

@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.dvn.charity.organization.persistence.entity.Project;
 import org.dvn.charity.organization.persistence.repository.ProjectRepo;
+import org.dvn.charity.organization.service.ProjectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProjectController {
 
-    private final ProjectRepo projectRepository;
+    private final ProjectService projectService;
 
     @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
@@ -24,7 +25,7 @@ public class ProjectController {
             @ApiResponse(responseCode = "404", description = "Schema not found"),
             @ApiResponse(responseCode = "500", description = "Internal error")})
     public List<Project> getAllProjects() {
-        return (List<Project>) projectRepository.findAll();
+        return projectService.getAllProjects();
     }
 
     @GetMapping("/{id}")
@@ -34,7 +35,7 @@ public class ProjectController {
             @ApiResponse(responseCode = "404", description = "Schema not found"),
             @ApiResponse(responseCode = "500", description = "Internal error")})
     public Project getProjectById(@PathVariable("id") long id) {
-        return projectRepository.findById(id).orElse(null);
+        return projectService.getProjectById(id);
     }
 
     @PostMapping("/")
@@ -44,7 +45,7 @@ public class ProjectController {
             @ApiResponse(responseCode = "404", description = "Schema not found"),
             @ApiResponse(responseCode = "500", description = "Internal error")})
     public Project createProject(@RequestBody Project project) {
-        return projectRepository.save(project);
+        return projectService.createProject(project);
     }
 
     @GetMapping("/{id}/deactivate")
@@ -54,9 +55,7 @@ public class ProjectController {
             @ApiResponse(responseCode = "404", description = "Schema not found"),
             @ApiResponse(responseCode = "500", description = "Internal error")})
     public Project deactivateProject(@PathVariable long id) {
-        Project project = projectRepository.findById(id).orElse(null);
-        project.setActive(false);
-        return project;
+        return projectService.deacrivateProject(id);
     }
 
     @GetMapping("/{id}/activate")
@@ -66,8 +65,6 @@ public class ProjectController {
             @ApiResponse(responseCode = "404", description = "Schema not found"),
             @ApiResponse(responseCode = "500", description = "Internal error")})
     public Project activateProject(@PathVariable long id) {
-        Project project = projectRepository.findById(id).orElse(null);
-        project.setActive(true);
-        return project;
+        return projectService.acrivateProject(id);
     }
 }
