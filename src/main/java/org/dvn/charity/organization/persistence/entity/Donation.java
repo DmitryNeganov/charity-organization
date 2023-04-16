@@ -1,20 +1,19 @@
 package org.dvn.charity.organization.persistence.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
+/**
+ * The type Donation.
+ */
 @Entity
 @Table(name = "donations")
 @Getter
 @Setter
+@EqualsAndHashCode
 public class Donation {
 
     @Id
@@ -22,9 +21,9 @@ public class Donation {
     private long id;
 
     @Column(nullable = false)
-    private int donationFullSum;
+    private float donationFullSum;
 
-    @OneToOne
-    @JoinColumn(name = "sponsor_id", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "sponsor_id")
     private Sponsor sponsor;
 }

@@ -63,7 +63,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: budget
-                  type: INTEGER
+                  type: REAL
                   constraints:
                     nullable: false
               - column:
@@ -110,7 +110,7 @@ databaseChangeLog:
                     primaryKeyName: pk_donations
               - column:
                   name: donation_full_sum
-                  type: INTEGER
+                  type: REAL
                   constraints:
                     nullable: false
               - column:
@@ -150,7 +150,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: distributed_sum
-                  type: INTEGER
+                  type: REAL
                   constraints:
                     nullable: false
               - column:

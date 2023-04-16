@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * The type Donation distribution record.
+ */
 @Entity
 @Table(name = "donation_distribution_records")
 @Getter
@@ -18,7 +21,7 @@ public class DonationDistributionRecord {
     private Project project;
 
     @Column(nullable = false)
-    private int sum;
+    private float distributedSum;
 
     @ManyToOne
     private Donation donation;

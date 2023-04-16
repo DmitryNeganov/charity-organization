@@ -1,12 +1,17 @@
 package org.dvn.charity.organization.persistence.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-import java.util.Set;
-
+/**
+ * The type Project.
+ */
 @Entity
 @Table(name = "projects")
 @Getter
@@ -24,7 +29,7 @@ public class Project {
     private int involvementDegree; //1, 2, 3, 4, 5
 
     @Column(nullable = false)
-    private int budget;
+    private float budget;
 
     @Column(nullable = false)
     private boolean isActive;
