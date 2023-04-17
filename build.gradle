@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'org.dvn'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0-SNAPSHOT'
 sourceCompatibility = '17'
 
 configurations {
@@ -23,12 +23,17 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.liquibase:liquibase-core'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'io.swagger:swagger-core:1.6.10'
-	implementation 'org.springdoc:springdoc-openapi-common:1.6.10'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+	implementation 'io.swagger:swagger-annotations:1.6.10'
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.mockito:mockito-core:5.3.0'
+	testImplementation 'org.projectlombok:lombok:1.18.26'
+
 }
 
 tasks.named('test') {

@@ -23,7 +23,7 @@ public class DonationMapper {
     public Donation map(DonationDto donationDto) {
         var donation = new Donation();
         donation.setDonationFullSum(donationDto.getDonationFullSum());
-        donation.setSponsor(sponsorService.createOrUserExsistingSponsor(donationDto.getSponsorName()));
+        donation.setSponsor(sponsorService.createNewOrUseExsistingSponsor(donationDto.getSponsorName()));
 
         return donation;
     }

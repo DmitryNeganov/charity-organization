@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Project controller.
@@ -39,7 +40,6 @@ public class ProjectController {
     @ResponseStatus(HttpStatus.OK)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "404", description = "Project not found"),
             @ApiResponse(responseCode = "500", description = "Internal error")})
     public List<Project> getAllProjects() {
         return projectService.getAllProjects();
@@ -56,7 +56,6 @@ public class ProjectController {
     @ResponseStatus(HttpStatus.OK)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "404", description = "Project not found"),
             @ApiResponse(responseCode = "500", description = "Internal error")})
     public Project getProjectById(@PathVariable("id") long id) {
         return projectService.getProjectById(id);
@@ -93,7 +92,7 @@ public class ProjectController {
             @ApiResponse(responseCode = "404", description = "Project not found"),
             @ApiResponse(responseCode = "500", description = "Internal error")})
     public Project deactivateProject(@PathVariable long id) {
-        return projectService.deacrivateProject(id);
+        return projectService.deactivateProject(id);
     }
 
     /**

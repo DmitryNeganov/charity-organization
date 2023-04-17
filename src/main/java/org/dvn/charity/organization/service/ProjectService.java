@@ -5,9 +5,11 @@ import org.dvn.charity.organization.api.dto.ProjectDto;
 import org.dvn.charity.organization.persistence.entity.Project;
 import org.dvn.charity.organization.persistence.repository.ProjectRepo;
 import org.dvn.charity.organization.service.mapper.ProjectMapper;
+import org.springdoc.api.OpenApiResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The type Project service.
@@ -35,11 +37,15 @@ public class ProjectService {
      * @return the project by id
      */
     public Project getProjectById(long id) {
-        return projectRepository.findById(id).orElse(null);
+        try {
+            return projectRepository.findById(id).orElseThrow();
+        } catch (Exception e) {
+            throw new OpenApiResourceNotFoundException("No project found with id = " + id);
+        }
     }
 
     /**
-     * Create project project.
+     * Create project.
      *
      * @param projectDto the project dto
      * @return the project
@@ -51,12 +57,12 @@ public class ProjectService {
     }
 
     /**
-     * Deacrivate project project.
+     * Deactivate project.
      *
      * @param id the id
      * @return the project
      */
-    public Project deacrivateProject(long id) {
+    public Project deactivateProject(long id) {
         var project = projectRepository.findById(id).orElse(null);
         project.setActive(false);
 
@@ -64,7 +70,7 @@ public class ProjectService {
     }
 
     /**
-     * Acrivate project project.
+     * Acrivate project.
      *
      * @param id the id
      * @return the project
@@ -86,7 +92,7 @@ public class ProjectService {
     }
 
     /**
-     * Increase project budget project.
+     * Increase project budget.
      *
      * @param project the project
      * @return the project

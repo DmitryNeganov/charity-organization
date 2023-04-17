@@ -15,12 +15,12 @@ public class SponsorService {
     private final SponsorRepo sponsorRepo;
 
     /**
-     * Create or user exsisting sponsor sponsor.
+     * Create new or use exsistent sponsor.
      *
-     * @param sponsorName the sponsor name
+     * @param sponsorName
      * @return the sponsor
      */
-    public Sponsor createOrUserExsistingSponsor(String sponsorName) {
+    public Sponsor createNewOrUseExsistingSponsor(String sponsorName) {
         if (sponsorRepo.existsBySponsorName(sponsorName)) {
             return sponsorRepo.findBySponsorName(sponsorName);
         }
