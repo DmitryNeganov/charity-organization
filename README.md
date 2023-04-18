@@ -32,14 +32,21 @@
 Для валидации входящих данных POST запросов используются ProjectDTO и DonationDTO классы. Для маппинга данных созданы сервисные классы ProjectMapper и DonationMapper.
 
 Использованный стек технологий:
-Spring Boot 3.0.5
-Java 17
-Gradle
-PostgreSQL
-Liquibase – для внесения дальнейших изменений в базу данных.
-Docker – в корне репозитория находится docker-compose файл для разворачивания контейнера с базой данных и сервиса взаимодействия с базой.
-Swagger UI доступен по пути /swagger-doc/swagger-ui/index.html
-Lombok для сокращения кода
-Junit5 и Mockito для тестов
-
-
+<b>Spring Boot 3.0.5</b>
+<br>
+<b>Java 17</b>
+<br>
+<b>Gradle</b>
+<br>
+<b>PostgreSQL</b>
+<br>
+<b>Liquibase</b> – для внесения дальнейших изменений в базу данных.
+<br>
+<b>Docker</b> – в корне репозитория находится docker-compose файл для разворачивания контейнера с базой данных и сервиса взаимодействия с базой.
+<br>
+<b>Swagger UI</b> доступен по пути /swagger-doc/swagger-ui/index.html
+<br>
+<b>Lombok</b> для сокращения кода
+<br>
+<b>Junit5</b> и <b>Mockito</b> для тестов
+<br>
