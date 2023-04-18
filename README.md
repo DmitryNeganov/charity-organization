@@ -9,12 +9,6 @@
 3.	Sponsor<br>
 4.	DonationDistributionRecord<br>
 
-В приложении реализовано 4 сущности:
-1.	Project<br>
-2.	Donation<br>
-3.	Sponsor<br>
-4.	DonationDistributionRecord<br>
-
 Для взаимодействия реализованы 2 контроллера:<br>
 1.	ProjectController (/projects/). Имеет 6 методов-действий:<br>
 1.1.	getAllProjects – (GET) получить список всех проектов<br>
