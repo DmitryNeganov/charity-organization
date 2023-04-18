@@ -4,28 +4,28 @@
 ![изображение](https://user-images.githubusercontent.com/102044344/232735152-6d579468-a24b-462f-b17c-94ac1d1683ac.png)
 
 В приложении реализовано 4 сущности:
-1.	Project
-2.	Donation
-3.	Sponsor
-4.	DonationDistributionRecord
+1.	Project<br>
+2.	Donation<br>
+3.	Sponsor<br>
+4.	DonationDistributionRecord<br>
 
 В приложении реализовано 4 сущности:
-1.	Project
-2.	Donation
-3.	Sponsor
-4.	DonationDistributionRecord
+1.	Project<br>
+2.	Donation<br>
+3.	Sponsor<br>
+4.	DonationDistributionRecord<br>
 
-Для взаимодействия реализованы 2 контроллера:
-1.	ProjectController (/projects/). Имеет 6 методов-действий:
-1.1.	getAllProjects – (GET) получить список всех проектов
-1.2.	getProjectById – (GET) получить проект по ID
-1.3.	createProject – (POST) создать проект, необходимо передать в теле запроса необходимо передать название, начальный бюджет и коэффициент вовлеченности (от 1 до 5)
-1.4.	 deactivateProject – (GET) приостановить внесение в проект пожертвований
-1.5.	activateProject – (GET) возобновить внесение в проект пожертвований
-2.	DonationController
-2.1.	findAllDonations – (GET) получить список всех пожертвований
-2.2.	getDonationById – (GET) получить пожертвование по ID
-2.3.	createDonation – (POST) создать пожертвование, нужно передать сумму пожертвования и название(имя) спонсора
+Для взаимодействия реализованы 2 контроллера:<br>
+1.	ProjectController (/projects/). Имеет 6 методов-действий:<br>
+1.1.	getAllProjects – (GET) получить список всех проектов<br>
+1.2.	getProjectById – (GET) получить проект по ID<br>
+1.3.	createProject – (POST) создать проект, необходимо передать в теле запроса необходимо передать название, начальный бюджет и коэффициент вовлеченности (от 1 до 5)<br>
+1.4.	 deactivateProject – (GET) приостановить внесение в проект пожертвований<br>
+1.5.	activateProject – (GET) возобновить внесение в проект пожертвований<br>
+2.	DonationController<br>
+2.1.	findAllDonations – (GET) получить список всех пожертвований<br>
+2.2.	getDonationById – (GET) получить пожертвование по ID<br>
+2.3.	createDonation – (POST) создать пожертвование, нужно передать сумму пожертвования и название(имя) спонсора<br>
 
 После создания пожертвования, оно распределяется по существующим активным проектам согласно их коэффициенту вовлеченности. Это реализовано в сервис классе DonationDistributionEngine, который получает из базы данных сумму коэффициентов вовлеченности всех проектов. Потом добавляет в бюджет каждого активного проекта пропорционально его коэффициенту вовлеченности сумму из пожертвования. 
 Для работы с базой данных созданы сервис классы DonationService, ProjectService, SponsorService и интерфейсы репозитория для каждой сущности.
