@@ -31,7 +31,7 @@ public class Donation {
     @Column(nullable = false)
     private float donationFullSum;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "sponsor_id")
     private Sponsor sponsor;
 }

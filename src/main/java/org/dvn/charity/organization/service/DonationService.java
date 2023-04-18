@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The type Donation service.
@@ -39,8 +40,8 @@ public class DonationService {
      * @param id the id
      * @return the donation by id
      */
-    public Donation getDonationById(long id) {
-        return donationRepository.findById(id).orElse(null);
+    public Optional<Donation> getDonationById(long id) {
+        return donationRepository.findById(id);
     }
 
     /**

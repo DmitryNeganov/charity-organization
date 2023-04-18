@@ -14,6 +14,6 @@ public interface ProjectRepo extends CrudRepository<Project, Long> {
      *
      * @return the all invocation degrees sum
      */
-    @Query(value = "SELECT SUM(involvement_degree) FROM projects", nativeQuery = true)
+    @Query(value = "SELECT SUM(involvement_degree) FROM projects WHERE is_active = 'true'", nativeQuery = true)
     float getAllInvocationDegreesSum();
 }

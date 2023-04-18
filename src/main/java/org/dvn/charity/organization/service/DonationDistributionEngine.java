@@ -25,6 +25,7 @@ public class DonationDistributionEngine {
         float degreesSum = projectService.getAllInvolvementDegreesSum();
         var projectList = projectService.getAllProjects();
         for (Project project : projectList) {
+            if (!project.isActive()) continue;
             float donationDistribution = donation.getDonationFullSum() / degreesSum * project.getInvolvementDegree();
             float newBudget = project.getBudget() + donationDistribution;
             project.setBudget(newBudget);

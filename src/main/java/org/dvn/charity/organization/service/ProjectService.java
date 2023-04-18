@@ -5,7 +5,6 @@ import org.dvn.charity.organization.api.dto.ProjectDto;
 import org.dvn.charity.organization.persistence.entity.Project;
 import org.dvn.charity.organization.persistence.repository.ProjectRepo;
 import org.dvn.charity.organization.service.mapper.ProjectMapper;
-import org.springdoc.api.OpenApiResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,12 +35,8 @@ public class ProjectService {
      * @param id the id
      * @return the project by id
      */
-    public Project getProjectById(long id) {
-        try {
-            return projectRepository.findById(id).orElseThrow();
-        } catch (Exception e) {
-            throw new OpenApiResourceNotFoundException("No project found with id = " + id);
-        }
+    public Optional<Project> getProjectById(long id) {
+        return projectRepository.findById(id);
     }
 
     /**
@@ -51,7 +46,12 @@ public class ProjectService {
      * @return the project
      */
     public Project createProject(ProjectDto projectDto) {
-        var project = projectMapper.map(projectDto);
+        Project project = projectMapper.map(projectDto);;
+//        try {
+//            project = projectMapper.map(projectDto);
+//        } catch (Exception e) {
+//            return Optional.empty();
+//        }
 
         return projectRepository.save(project);
     }
@@ -62,11 +62,16 @@ public class ProjectService {
      * @param id the id
      * @return the project
      */
-    public Project deactivateProject(long id) {
-        var project = projectRepository.findById(id).orElse(null);
-        project.setActive(false);
-
-        return project;
+    public Optional<Project> deactivateProject(long id) {
+        var project = getProjectById(id);
+        if (project.isEmpty()) {
+            return Optional.empty();
+        }
+        return project.map(p -> {
+            p.setActive(false);
+            projectRepository.save(p);
+            return p;
+        });
     }
 
     /**
@@ -75,11 +80,16 @@ public class ProjectService {
      * @param id the id
      * @return the project
      */
-    public Project acrivateProject(long id) {
-        var project = projectRepository.findById(id).orElse(null);
-        project.setActive(true);
-
-        return project;
+    public Optional<Project> activateProject(long id) {
+        var project = getProjectById(id);
+        if (project.isEmpty()) {
+            return Optional.empty();
+        }
+        return project.map(p -> {
+            p.setActive(true);
+            projectRepository.save(p);
+            return p;
+        });
     }
 
     /**

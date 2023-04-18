@@ -3,11 +3,13 @@ package org.dvn.charity.organization.api.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.dvn.charity.organization.api.dto.ProjectDto;
 import org.dvn.charity.organization.persistence.entity.Project;
 import org.dvn.charity.organization.service.ProjectService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Project controller.
@@ -37,12 +38,17 @@ public class ProjectController {
      */
     @GetMapping("/")
     @Operation(summary = "Get all the projects")
-    @ResponseStatus(HttpStatus.OK)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "500", description = "Internal error")})
-    public List<Project> getAllProjects() {
-        return projectService.getAllProjects();
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "500", description = "Internal error")
+    })
+    public ResponseEntity<List<Project>> getAllProjects() {
+        var projectList = projectService.getAllProjects();
+        if (projectList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(projectList, HttpStatus.OK);
     }
 
     /**
@@ -53,12 +59,16 @@ public class ProjectController {
      */
     @GetMapping("/{id}")
     @Operation(summary = "Get project by ID")
-    @ResponseStatus(HttpStatus.OK)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
             @ApiResponse(responseCode = "500", description = "Internal error")})
-    public Project getProjectById(@PathVariable("id") long id) {
-        return projectService.getProjectById(id);
+    public ResponseEntity<Project> getProjectById(@PathVariable("id") long id) {
+        var project = projectService.getProjectById(id);
+        if (project.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(project.orElseThrow(), HttpStatus.OK);
     }
 
     /**
@@ -69,13 +79,12 @@ public class ProjectController {
      */
     @PostMapping("/")
     @Operation(summary = "Create project")
-    @ResponseStatus(HttpStatus.CREATED)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Project created"),
             @ApiResponse(responseCode = "400", description = "Missing or invalid request body"),
             @ApiResponse(responseCode = "500", description = "Internal error")})
-    public Project createProject(@RequestBody ProjectDto projectDto) {
-        return projectService.createProject(projectDto);
+    public ResponseEntity<Project> createProject(@Valid @RequestBody ProjectDto projectDto) {
+        return new ResponseEntity<>(projectService.createProject(projectDto), HttpStatus.CREATED);
     }
 
     /**
@@ -86,13 +95,16 @@ public class ProjectController {
      */
     @GetMapping("/{id}/deactivate")
     @Operation(summary = "Deactivate the project by id")
-    @ResponseStatus(HttpStatus.OK)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "404", description = "Project not found"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
             @ApiResponse(responseCode = "500", description = "Internal error")})
-    public Project deactivateProject(@PathVariable long id) {
-        return projectService.deactivateProject(id);
+    public ResponseEntity<Project> deactivateProject(@PathVariable long id) {
+        var project = projectService.deactivateProject(id);
+        if (project.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(project.orElseThrow(), HttpStatus.OK);
     }
 
     /**
@@ -108,7 +120,11 @@ public class ProjectController {
             @ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "404", description = "Project not found"),
             @ApiResponse(responseCode = "500", description = "Internal error")})
-    public Project activateProject(@PathVariable long id) {
-        return projectService.acrivateProject(id);
+    public ResponseEntity<Project> activateProject(@PathVariable long id) {
+        var project = projectService.activateProject(id);
+        if (project.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(project.orElseThrow(), HttpStatus.OK);
     }
 }
